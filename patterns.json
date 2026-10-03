@@ -1,0 +1,10 @@
+[
+  {"id":"L01","name":"Aurora","slug":"aurora","duration":20,"category":"Ambient","description":"Drifting cyan and purple · all den lights"},
+  {"id":"L02","name":"Rainbow","slug":"rainbow","duration":20,"category":"Colour","description":"Complementary colour wheel · all den lights"},
+  {"id":"L03","name":"Pride","slug":"pride","duration":20,"category":"Colour","description":"Rainbow and flag-inspired choreography · all den lights"},
+  {"id":"L04","name":"Sunset","slug":"sunset","duration":20,"category":"Ambient","description":"Warm amber and pink · all den lights"},
+  {"id":"L05","name":"Chase","slug":"chase","duration":30,"category":"Dynamic","description":"Accelerating cyan chase · all den lights","warning":"Rapid flashing: avoid if sensitive to flashing lights."},
+  {"id":"L06","name":"Green-blue swap","slug":"green-blue","duration":"forever","category":"Dynamic","description":"Green and blue swap every second · all den lights"},
+  {"id":"L07","name":"Blue pulse","slug":"pulse-blue","duration":"forever","category":"Ambient","description":"Gentle light-blue brightness pulse · Den Lamp only"},
+  {"id":"L08","name":"Red/Blue Sweep","slug":"red-blue","duration":20,"category":"Colour","description":"Smooth red/blue sweep · 35% brightness · 2-second transitions · no strobe · all den lights"}
+]

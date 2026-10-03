@@ -1,0 +1,2 @@
+const {test}=require('node:test');const assert=require('node:assert/strict');const lights=require('./lights.cjs');
+test('red-blue sweep alternates smoothly at moderate brightness',()=>{assert.equal(typeof lights.redBlueFrame,'function');for(let s=0;s<4;s++)for(let i=0;i<3;i++){const f=lights.redBlueFrame(s,i);assert.equal(f.hue,(s+i)%2?240:0);assert.equal(f.brightness,35);assert.equal(f.transition_period,2000);assert.equal(f.on_off,1);assert.equal(f.color_temp,0);}});

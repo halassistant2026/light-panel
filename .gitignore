@@ -1,0 +1,14 @@
+node_modules/
+state/
+logs/
+*.log
+devices.json
+snapshot*.json
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+.DS_Store

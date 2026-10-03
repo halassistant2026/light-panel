@@ -1,0 +1,12 @@
+{
+  "name": "den-light-panel",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Loopback-only console for the existing den-light controller",
+  "scripts": {
+    "start": "node server.cjs",
+    "test": "node --test",
+    "test:controller": "node --test controller/*.test.cjs"
+  },
+  "engines": {"node": ">=22"}
+}

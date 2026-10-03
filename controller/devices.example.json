@@ -1,0 +1,5 @@
+[
+  {"key":"light","alias":"Example ceiling bulb","host":"192.0.2.10","mac":"00:00:00:00:00:01"},
+  {"key":"lamp","alias":"Example lamp","host":"192.0.2.11","mac":"00:00:00:00:00:02"},
+  {"key":"lamp2","alias":"Example second lamp","host":"192.0.2.12","mac":"00:00:00:00:00:03"}
+]

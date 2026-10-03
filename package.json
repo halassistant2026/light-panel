@@ -1,8 +1,8 @@
 {
-  "name": "den-light-panel",
+  "name": "light-panel",
   "version": "1.0.0",
   "private": true,
-  "description": "Loopback-only console for the existing den-light controller",
+  "description": "Loopback-only console and controller for local smart lights",
   "scripts": {
     "start": "node server.cjs",
     "test": "node --test",

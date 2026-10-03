@@ -2,7 +2,7 @@
 const http=require('node:http');
 const {randomBytes}=require('node:crypto');
 const patterns=require('./patterns.json');
-const controller='C:/Users/hal/AppData/Local/hermes/skills/den-lights/scripts/lights.cjs';
+const controller=require('node:path').join(__dirname,'controller','lights.cjs');
 // Controller emits pretty-printed top-level JSON objects; keep parsing bounded
 // separately from the rolling display log so forever effects cannot grow memory.
 function objectReader(onObject){

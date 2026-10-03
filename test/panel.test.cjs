@@ -50,7 +50,7 @@ test('run reserves a single child and reports restored only after verified outpu
  assert.equal(runner.calls.length,1);
  const c=runner.calls[0];
  assert.equal(c.file,process.execPath);
- assert.deepEqual(c.args,['C:/Users/hal/AppData/Local/hermes/skills/den-lights/scripts/lights.cjs','effect','chase','30']);
+ assert.deepEqual(c.args,[path.join(root,'controller','lights.cjs'),'effect','chase','30']);
  assert.equal(c.options.shell,false);
  assert.equal((await a.post('/api/run',{id:'L01'})).status,409);
  c.child.report({effect:'chase',restored:true,verified:true});

@@ -1,15 +1,9 @@
-# Canonical source and deployment
+# Canonical source and runtime
 
-This folder is the **single Git repository** for the panel and controller.
-`controller/` is the canonical controller source. The installed Hermes skill
-scripts remain a deployment copy at:
-
-`C:/Users/hal/AppData/Local/hermes/skills/den-lights/scripts/`
-
-The panel intentionally continues invoking that installed CLI. This preserves
-its existing dependency installation, private device config, snapshot location,
-and exclusive lock; do not run a second configured controller from this repo.
-There is no second Git repository in the skill directory.
+`C:/Users/hal/light-panel` is the single Git repository and live runtime for the
+panel and controller. `controller/lights.cjs` is both canonical source and the
+executable used by the panel and Hermes skill. There is no code-copy deployment
+step and no second configured controller should be run.
 
 ## Offline checks
 
@@ -17,19 +11,15 @@ There is no second Git repository in the skill directory.
 - `npm run test:controller` runs just canonical controller tests.
 - `node controller/lights.cjs help` works without device config or dependencies.
 
-## Deploy controller changes
+## Apply controller changes
 
-1. Edit and test **controller/** here, not the installed skill copy.
+1. Edit and test **controller/** here.
 2. Stop any active effect cooperatively and wait for verified restoration.
-   Also check the installed `state/control.lock` is absent; do not delete it.
-3. Copy only `lights.cjs`, `*.test.cjs`, `package.json`, `package-lock.json`
-   from `controller/` to the installed scripts directory. Never copy/delete
-   `devices.json`, `state/`, or `node_modules/` during a source deployment.
-4. If dependencies changed, run `npm ci --ignore-scripts --no-audit --no-fund`
-   in the installed scripts directory while no controller is active.
-5. Run the installed `*.test.cjs` suite, compare deployed source bytes against
-   the canonical files, and run CLI help. Any live test requires user consent.
-6. For catalogue/server changes, wait for restoration, restart the panel and
+   Check `controller/state/control.lock` is absent; do not delete it blindly.
+3. If dependencies changed, run `npm ci --ignore-scripts --no-audit --no-fund`
+   in `controller/` while no controller is active.
+4. Run the complete test suite and CLI help. Any live test requires user consent.
+5. For catalogue/server changes, wait for restoration, restart the panel and
    reload the page (a new per-instance CSRF token is issued). Verify real GET
    `/`, `/api/health`, and `/api/bootstrap` without printing the token.
 
@@ -37,9 +27,8 @@ Actual device addresses/MACs, snapshots, state, dependencies, logs, and secrets
 are excluded by `.gitignore`. `controller/devices.example.json` uses reserved
 TEST-NET addresses and dummy MACs only; it is not a live configuration.
 
-On another machine, install/configure the controller separately and update the
-fixed controller path in `server.cjs` and its corresponding assertion in tests.
-Keep it loopback-only; this panel is not intended for LAN/proxy exposure.
+On another machine, create `controller/devices.json` from the example, install
+dependencies in `controller/`, and keep the panel loopback-only.
 
 ## Known controller limitations
 
@@ -52,9 +41,8 @@ It preserves snapshot order and uses configured hosts, not snapshot hosts;
 unselected bulbs are not contacted. Empty, duplicate, and unknown identities
 are rejected before network access.
 
-These controller fixes are source-only until a separately authorized deployment;
-the installed skill copy has not been modified. Do not assume it supports subset
-restore until its source has been deployed and verified.
+Repository controller changes become live after the current effect has restored
+and the next controller process starts. Server code changes require a panel restart.
 
 After snapshot readiness, an unverified effect exit leaves the panel blocked:
 new runs receive HTTP 409 and the failed snapshot/output remain available.

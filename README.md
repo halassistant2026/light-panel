@@ -1,10 +1,10 @@
-# Den light console
+# Light Panel
 
-Local-only control panel for the existing controller. No npm dependencies, remote fonts, CDN scripts, browser installation, or browser-side device access.
+Local-only control panel and canonical light controller. No remote fonts, CDN scripts, browser installation, or browser-side device access.
 
 ## Start
 
-Requires Node.js 22+ and the existing controller's installed dependencies.
+Requires Node.js 22+. Install the controller's pinned dependencies once with `npm ci --ignore-scripts --no-audit --no-fund` in `controller/`.
 
 ```sh
 node C:/Users/hal/light-panel/server.cjs
@@ -57,7 +57,7 @@ Recovery is explicitly manual:
 2. Resolve the failure and restore the saved state using a separately authorized, correctly configured controller. The canonical `controller/lights.cjs` supports `restore <path>` for a nonempty subset of unique, exactly matching configured MACs, including Blue pulse's lamp-only snapshot. It preserves snapshot order, uses configured hosts (never snapshot hosts), and leaves other bulbs untouched. Empty, duplicate, unknown or ambiguous identities are rejected before network access.
 3. Require successful restoration/readback verification before manually restarting the panel and reloading the page. Restart is the only reset; the block and output are in memory, not durable across server crashes/restarts. Restarting alone does not restore lights or prove recovery.
 
-The panel still invokes the installed deployment copy, which has **not** been updated by these source fixes. See `DEPLOYMENT.md` before relying on subset restore in that copy. Do not run a second configured controller from this repository. Enrollment is unsupported: canonical CLI help no longer advertises `enroll`, and the command is rejected before device configuration or network access.
+The panel and Hermes skill both invoke this repository's `controller/lights.cjs`; there is no separate deployed code copy. `controller/devices.json`, `controller/state/`, and `controller/node_modules/` are local and gitignored. Enrollment is unsupported: CLI help does not advertise `enroll`, and the command is rejected before device configuration or network access.
 
 If a cooperative stop request itself fails, the effect remains reserved and **Stop & restore** can be retried. Network failure, abrupt process termination, host shutdown, or loss of power can prevent restoration. There is no force-stop fallback or restoration timeout that releases a still-running child.
 
@@ -99,6 +99,7 @@ Implemented in vertical red/green slices: each new behavior was exercised failin
 ## Files
 
 - `server.cjs`: built-in HTTP server and controller lifecycle
+- `controller/`: live canonical controller, offline tests, local gitignored configuration/state/dependencies
 - `patterns.json`: stable catalogue
 - `public/index.html`, `public/style.css`, `public/app.mjs`: responsive dark console
 - `test/panel.test.cjs`, `test/ui.test.mjs`: offline automated tests
